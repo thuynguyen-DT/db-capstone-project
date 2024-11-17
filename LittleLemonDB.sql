@@ -1,8 +1,15 @@
 DELIMITER //
-CREATE PROCEDURE CancelOrder (IN order_id INT)
+CREATE PROCEDURE CancelBooking(IN booking_id INT)
 BEGIN
-DELETE FROM Orders WHERE OrderID = order_id;
+DECLARE check_booking INT;
+SELECT COUNT(*) INTO check_booking FROM Bookings WHERE BookingID = booking_id;
+IF check_booking > 0 THEN
+DELETE FROM Bookings WHERE BookingID = booking_id;
+SELECT 'Booking is canceled' AS Status, booking_id AS BookingID;
+ELSE
+SELECT 'Booking not found' AS Status, booking_id AS BookingID;
+END IF;
 END //
 DELIMITER ;
 
-CALL CancelOrder(11);
+CALL CancelBooking(14);
