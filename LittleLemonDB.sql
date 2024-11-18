@@ -1,11 +1,9 @@
 DELIMITER //
-CREATE PROCEDURE UpdateBooking(IN booking_date DATE, IN booking_id INT)
+CREATE PROCEDURE Addbooking(booking_id INT, booking_date DATE, table_booking INT, customer_id INT)
 BEGIN
-UPDATE Bookings
-SET BookingDate = booking_date
-WHERE BookingID = booking_id;
-SELECT 'booking is updated successfully' AS Status, booking_id AS BookingID;
+INSERT INTO Bookings(BookingID, BookingDate, TableNumber, CustomerID) VALUES (booking_id, booking_date, table_booking, customer_id);
+SELECT 'Booking added successfully' AS Status, booking_id AS BookingID;
 END //
 DELIMITER ;
 
-CALL UpdateBooking('2022-10-16',16);
+CALL Addbooking(16,'2022-10-17', 3, 1);
